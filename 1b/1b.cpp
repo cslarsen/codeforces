@@ -23,14 +23,13 @@ static void tocoord(const char* s)
 // R23C55 -> BC23
 static void tocell(const char* s)
 {
-  static char buf[BUFLEN] = {0};
-
+  char buf[BUFLEN] = {0};
   N row=0, col=0;
 
-  for ( ++s; isdigit(*s); ++s )
+  while ( isdigit(*++s) )
     row = row*10 + *s - '0';
 
-  for ( ++s; isdigit(*s); ++s )
+  while ( isdigit(*++s) )
     col = col*10 + *s - '0';
 
   char *t = buf+sizeof(buf)-2;
@@ -55,10 +54,10 @@ int main()
 {
   ios_base::sync_with_stdio(false);
 
-  N rows;
+  N rows=0;
   cin >> rows;
 
-  static char s[32] = {0};
+  char s[32] = {0};
   for ( N n=0; n<rows; ++n ) {
     cin >> s;
     (iscoord(s) ? tocell : tocoord)(s);
